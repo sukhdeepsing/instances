@@ -6,15 +6,16 @@ data "terraform_remote_state" "network_details" {
     region = var.region
   }
 }
-resource "aws_instance" "my_vm" {
-  ami = "ami-0c65adc9a5c1b5d7c"
-  subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
-  instance_type = "t3.micro"
-  key_name = data.terraform_remote_state.network_details.outputs.my_aws_key
-  vpc_security_group_ids =  data.terraform_remote_state.network_details.outputs.security_group_id_array
 
-  tags = {
-     Name = "student.1-vm1"
+module "webserver" {
+  source = "./modules/linux_node"
+  ami = "ami-0c65adc9a5c1b5d7c"
+  instance_type = "t3.micro" 
+  key_name  = data.terraform_remote_state.network_details.outputs.my_aws_key
+  subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
+  vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
+   tags = {
+      " Name" = "student.1-vm1"
   }
 }
 
