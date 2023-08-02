@@ -3,7 +3,7 @@ data "terraform_remote_state" "network_details" {
   config = {
     bucket = "student.1-sukhdeep-bucket"
     key = "student.1-network-state"
-    region = "us-west-2"
+    region = var.region
   }
 }
 resource "aws_instance" "my_vm" {
