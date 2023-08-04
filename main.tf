@@ -16,8 +16,10 @@ module "webserver" {
   subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
   vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
    tags = {
-      " Name" = "student.1-webserver-vm"
+      " Name" = "var.webserver_prefix"
   }
+           install_package = "webservers"
+           playbook_name = "install-apache.yaml"
 }
 module "loadbalancer" {
   source = "./modules/linux_node"
@@ -28,6 +30,8 @@ module "loadbalancer" {
   subnet_id = data.terraform_remote_state.network_details.outputs.my_subnet
   vpc_security_group_ids = data.terraform_remote_state.network_details.outputs.security_group_id_array
    tags = {
-      " Name" = "student.1-loadbalancer-vm"
+      " Name" = "var.loadbalancer_prefix"
   }
+        install_package = ""
+        playbook_name = ""
 }
