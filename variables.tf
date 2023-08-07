@@ -11,4 +11,8 @@ variable "webserver_prefix" {
 variable "loadbalancer_prefix" {
    default = "student.1-loadbalancer-vm"
 }
+variable "web_docker_host_prefix" {
+   default = "student.XX-docker-vm"
+}
+
 
